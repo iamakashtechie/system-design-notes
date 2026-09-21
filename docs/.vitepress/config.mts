@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
+import { withPwa } from '@vite-pwa/vitepress'
 
-export default defineConfig({
+export default withPwa(defineConfig({
   title: "System Design Notes",
   description: "Notes based on System Design Interview - An Insider's Guide (Vol 1 & 2) by Alex Xu",
   ignoreDeadLinks: true,
@@ -107,5 +108,31 @@ export default defineConfig({
     image: {
       lazyLoading: true
     }
+  },
+  pwa: {
+    registerType: 'autoUpdate',
+    includeAssets: ['favicon.ico', 'logo.svg'],
+    manifest: {
+      name: 'System Design Notes',
+      short_name: 'SysDesign',
+      description: "Notes based on System Design Interview - An Insider's Guide by Alex Xu",
+      theme_color: '#3b82f6',
+      icons: [
+        {
+          src: '/logo.svg',
+          sizes: '192x192',
+          type: 'image/svg+xml'
+        },
+        {
+          src: '/logo.svg',
+          sizes: '512x512',
+          type: 'image/svg+xml'
+        }
+      ]
+    },
+    workbox: {
+      globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
+      maximumFileSizeToCacheInBytes: 5242880
+    }
   }
-})
+}))
