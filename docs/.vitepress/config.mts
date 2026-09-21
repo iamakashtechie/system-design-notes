@@ -111,7 +111,10 @@ export default withPwa(defineConfig({
   },
   pwa: {
     registerType: 'autoUpdate',
-    includeAssets: ['favicon.ico', 'logo.svg'],
+    includeAssets: ['favicon.ico', 'logo.svg', 'images/**/*'],
+    experimental: {
+      includeAllowlist: true,
+    },
     manifest: {
       name: 'System Design Notes',
       short_name: 'SysDesign',
@@ -131,8 +134,49 @@ export default withPwa(defineConfig({
       ]
     },
     workbox: {
-      globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2}'],
-      maximumFileSizeToCacheInBytes: 5242880
+      globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff2,json}'],
+      maximumFileSizeToCacheInBytes: 5242880,
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'google-fonts-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 * 365
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+        {
+          urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'gstatic-fonts-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 * 365
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+        {
+          urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp)$/,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'images-cache',
+            expiration: {
+              maxEntries: 100,
+              maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
+            }
+          }
+        }
+      ]
     }
   }
 }))
