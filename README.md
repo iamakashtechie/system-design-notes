@@ -7,17 +7,23 @@ Check the notes here: https://system-design-notes-docs.vercel.app
 **Note:** These notes are a work in progress. 
 
 
-## 🌐 Interactive Web View
+## 🌐 Progressive Web App (PWA) & Offline Notes
 
-This repository now includes a fast, responsive documentation site built with VitePress with full-text search across all chapters.
+This repository includes a full-featured Progressive Web App (PWA) built with VitePress with full-text search and complete **offline support**:
+- 📱 **Installable PWA:** Can be installed directly to your home screen or desktop (Chrome, Safari, Edge, Android, iOS).
+- ⚡ **100% Offline Browsing:** Pre-caches all 28 chapters, diagrams, SVGs, and fonts locally upon initial load so you can read seamlessly without an internet connection.
+- 🔄 **Auto-Updating Service Worker:** Automatically fetches updates when online.
 
 ```bash
 # Run locally
 npm install
 npm run docs:dev
 
-# Build for production (e.g. Vercel)
+# Build for production with service worker & precache (e.g. Vercel / Netlify / GitHub Pages)
 npm run docs:build
+
+# Preview production build locally
+npm run docs:preview
 ```
 
 ---

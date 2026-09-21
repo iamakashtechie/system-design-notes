@@ -5,9 +5,15 @@
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "generate:icons": "node scripts/generate-icons.mjs"
   },
   "devDependencies": {
+    "@vite-pwa/vitepress": "^1.1.0",
+    "sharp": "^0.35.4",
     "vitepress": "^1.5.0"
+  },
+  "dependencies": {
+    "shiki": "^2.1.0"
   }
 }
